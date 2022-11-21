@@ -1,66 +1,184 @@
-printf
-_printf is a custom implementation of the C programming function printf. This project is an application of the C programming knowledge that main School cohort 3 students have learned since starting the program on May 1, 2017.
+# 0x11. C - printf
 
-Prototype: int _printf(const char *, ...);
+## Description
 
-Examples
-String
+This printf project is a collaboration between Samuel Adebayo and Gerald Juwah. Who are Software Engineers studing at students of ALX school. This project involves a function named "\_printf" which would imitate the actual "printf" command located in the stdio.h library. This function contains some of the basic features and functions found in the man 3 of "printf".
 
-Input: _printf("%s\n", 'This is a string.');
-Output: This is a string.
-Character
+What you would learn from this project:
 
-Input: _printf("The first letter in the alphabet is %c\n", 'A');
-Output: The first letter in the alphabet is A
-Integer
+- How to use git in a team setting
+- Applying variadic functions to big projects
+- The complexities of printf
+- Managing a lot of flies and finding a good workflow
 
-Input: _printf("There are %i dozens in a gross\n", 12);
-Output: There are 12 dozens in a gross
-Decimal:
+## Prototype
 
-Input: _printf("%d\n", 1000);
-Output: 1000
-Project Requirements
-All files will be compiled on Ubuntu 14.04 LTS
-Programs and functions will be compiled with gcc 4.8.4 using flags -Wall -Werror -Wextra and -pedantic
-Code must follow the Betty style
-Global variables are not allowed
-Authorized functions and macros:
-write (man 2 write)
-malloc (man 3 malloc)
-free (man 3 free)
-va_start (man 3 va_start)
-va_end (man 3 va_end)
-va_copy (man 3 va_copy)
-va_arg (man 3 va_arg)
-Mandatory Tasks
- Write function that produces output with conversion specifiers c, s, and %.
- Handle conversion specifiers d, i.
- Create a man page for your function.
-Advanced Tasks
- Handle conversion specifier b.
- Handle conversion specifiers u, o, x, X.
- Use a local buffer of 1024 chars in order to call write as little as possible.
- Handle conversion specifier S.
- Handle conversion specifier p.
- Handle flag characters +, space, and # for non-custom conversion specifiers.
- Handle length modifiers l and h for non-custom conversion specifiers.
- Handle the field width for non-custom conversion specifiers.
- Handle the precision for non-custom conversion specifiers.
- Handle the 0 flag character for non-custom conversion specifiers.
- Handle the custom conversion specifier r that prints the reversed string.
- Handle the custom conversion specifier R that prints the rot13'ed string.
- All above options should work well together.
-File Descriptions
-_printf.c: - contains the fucntion _printf, which uses the prototype int _printf(const char *format, ...);. The format string is composed of zero or more directives. See man 3 printf for more detail. _printf will return the number of characters printed (excluding the null byte used to end output to strings) and will write output to stdout, the standard output stream.
-_putchar.c: - contains the function _putchar, which writes a character to stdout.
-main.h: - contains all function prototypes used for _printf.
-man_3_printf: - manual page for the custom _printf function.
-print_chars.c: - contains the functions print_c, print_s, print_S, and print_r which handle the conversion specifiers c, s, S, and r, respectively, as well as hex_print, which prints a char's ascii value in uppercase hex
-print_numbers.c: - contains the functions print_i and print_d, which handle the conversion specifiers i and d, respectively
-print_hex.c: - contains the functions print_hex, which prints an unsigned int in hexidecimal form, print_x, print_X, and print_p, which handle the conversion specifiers x, X, and p, respectively
-print_unsigned_int.c: - contains the functions print_u, print_o, and print_b, which handle the conversion specifiers u, o, and b, respectively
-print_rot13.c - contains the function print_R, which handles the conversion specifier R
-Authors
-Abdulhameed Abdulrazaq | abdulhameedabdulrazaq123@gmail.com
-Chikaodiri Agu | agu.chikaodiri.ng@gmail.com
+    int _printf(const char *format, ...);
+
+## Usage
+
+- Prints a string to the standard output, according to a given format
+- All files were created and compiled on Ubuntu 14.04.4 LTS using GCC 4.8.4 with the command `gcc -Wall -Werror -Wextra pedantic *.c`
+- Returns the number of characters in the output string on success, -1 otherwise
+- Call it this way: `_printf("format string", arguments...)` where `format string` can contain conversion specifiers and flags, along with regular characters.
+
+The **format** contains the string that is printed. As \_printf() is variadic function, it can receives n arguments that replace by n tags written inside the string.
+
+The format tags prototype is the following:
+
+    %[flags][length]specifier
+
+If the program runs successfully, the return value is the amount of chars printed.
+
+| Specifier | Output              |
+| --------- | ------------------- |
+| c         | Character           |
+| d or i    | Decimal integer     |
+| s         | String              |
+| b         | Binary              |
+| %         | Percentage charater |
+| o         | Signed Octal        |
+| u         | Unsigned Integer    |
+| x         | Unsigned Hexadecimal|
+| X         | Unsigned Hexadecimal (uppercase) |
+| p         | Pointer address     |
+| r         | Reversr string of characters |
+| R         | ROT13 translaton of string |
+| S         | String with special chars replaced by their ASCII value |
+
+## Examples
+
+1. Printing the string of chars "Hello ALX School":
+
+   - Input: `\_printf("Hello %s.", "ALX School");`
+   - Output: `Hello ALX School`
+
+2. Printing an integer number:
+
+   - Input: `\_printf("2 + 2 is equal to %d.", 4);`
+   - Output: `2 + 2 is equal to 4`
+
+3. Printing a binary:
+
+   - Input: `\_printf("98 in binary is [%b]", 98);`
+   - Output: `98 in binary is [1100010]`
+
+## File Functions
+
+### \_printf.c
+
+the function that imitates printf(), by printing data.
+
+---
+
+### main.h
+
+Header file where all Protypes are saved.
+
+---
+
+### man_3_printf
+
+manpage file
+
+---
+
+### parse_char.c
+
+Function that writes the Buffer Character.
+
+    /* Indetifier : %c */
+
+---
+
+### parse_int.c
+
+Function that Prints an Integer.
+
+    /* Indetifier : %i or %d */
+
+---
+
+### parse_string.c
+
+Function that Prints out a String.
+
+    /* Indetifier : %s */
+
+---
+
+### parse_binary.c
+
+Function that Prints a Binary.
+
+    /* Indetifier : %b */
+
+---
+
+### parse_perc.c
+
+Function that Prints a Percentage symbol.
+
+    /* Indetifier : %% */
+
+---
+### parse_oct.c
+
+Function that Prints Decimal in Octal.
+
+	/* Indetifier : %o */
+
+---
+
+### parse_hex.c
+
+Function that Prints Decimal in Hexadecimal.
+
+	/* Indetifier : %x */
+
+---
+
+### parse_x_X.c
+
+Function that prints Decimal in Uppercase Hexadecimal.
+
+	/* Indetifier : %X */
+
+---
+
+### parse_unit.c
+
+Function that Prints an Unsigned Integer.
+
+	/* Indetifier : %u */
+
+---
+
+### parse_buff.c
+
+Function that Prints the Buffer
+
+---
+
+### CONTRIBUTION.md
+
+Documentation stating the styleguide on how the work flow was carried out.
+
+---
+
+### .gitignore
+
+Files to be ignored when pushing to github.
+
+---
+
+### project_junkyard
+
+Function files used to run various tests on the \_printf Function.
+
+---
+
+## Authors
+
+- `Abdulhameed Abdulrazaq` abdulhameedabdulrazaq123@gmail.com
+- `Chikaodiri Agu` agu.chikaodiri.ng@gmail.com
