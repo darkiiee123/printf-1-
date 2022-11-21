@@ -62,6 +62,6 @@ print_hex.c: - contains the functions print_hex, which prints an unsigned int in
 print_unsigned_int.c: - contains the functions print_u, print_o, and print_b, which handle the conversion specifiers u, o, and b, respectively
 print_rot13.c - contains the function print_R, which handles the conversion specifier R
 Authors
-Jane Doe | @Jane_Doe
+Abdulhameed Abdulrazaq | abdulhameedabdulrazaq123@gmail.com
 
-John Doe | @John_Doe
+NaGu-Tech | agu.chikaodiri.ng@gmail.com
