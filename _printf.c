@@ -1,48 +1,50 @@
 #include "main.h"
+
 /**
- * _printf - replication of some of the features from C function printf()
- * @format: character string of directives, flags, modifiers, & specifiers
- * Description: This function uses the variable arguments functionality and is
- * supposed to resemble printf().  Please review the README for more
- * information on how it works.
- * Return: number of characters printed
+ * _printf - a function that produces output according to a format and argument
+ * @format: string containing the regular chars and format specifiers to print
+ *
+ * Return: the total number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	va_list args_list;
-	inventory_t *inv;
-	void (*temp_func)(inventory_t *);
+	/* Declare a variable list, with its own argument(begins at va_start) */
+	va_list list;
+	int i = 0, count = 0;
+	/* a function pointer, that accepts va_list as argument */
+	int (*ptr_func)(va_list);
 
-	if (!format)
+	/* Returns -1 if format is null */
+	if (!format || (format[i] == '%' && format[i + 1] == '\0'))
 		return (-1);
-	va_start(args_list, format);
-	inv = build_inventory(&args_list, format);
+	if (!format[i])
+		return (0);
 
-	while (inv && format[inv->i] && !inv->error)
+	va_start(list, format);
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		inv->c0 = format[inv->i];
-		if (inv->c0 != '%')
-			write_buffer(inv);
-		else
+		if (format[i] == '%')
 		{
-			parse_specifiers(inv);
-			temp_func = match_specifier(inv);
-			if (temp_func)
-				temp_func(inv);
-			else if (inv->c1)
+			if (format[i + 1] == '\0')
+				return (-1);
+
+			ptr_func = get_func(format, i + 1);
+			if (ptr_func == NULL)
 			{
-				if (inv->flag)
-					inv->flag = 0;
-				write_buffer(inv);
+				_putchar('%');
+				count++;
 			}
 			else
 			{
-				if (inv->space)
-					inv->buffer[--(inv->buf_index)] = '\0';
-				inv->error = 1;
+				count += ptr_func(list);
+				i += get_nflags(format, i + 1);
 			}
 		}
-		inv->i++;
+		else
+		{
+			_putchar(format[i]);
+			count++;
+		}
 	}
-	return (end_func(inv));
+	return (count);
 }
